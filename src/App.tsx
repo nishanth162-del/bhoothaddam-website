@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import * as stylex from '@stylexjs/stylex'
 import { Stack } from '@astryxdesign/core/Stack'
 import { Heading } from '@astryxdesign/core/Heading'
 import { Text } from '@astryxdesign/core/Text'
@@ -18,35 +17,15 @@ import { Grid } from '@astryxdesign/core/Grid'
  * Bhoothaddam — clean editorial site, built with the real Astryx library.
  * Every visible control below is an @astryxdesign/core component.
  * Layout spacing comes from Astryx Stack/Section/Grid; the only custom
- * styles are a StyleX page shell (max width, masthead rule).
+ * styles are the plain CSS page-shell classes in index.css.
+ *
+ * NOTE: do NOT call stylex.create() in app code. Astryx ships pre-compiled
+ * ("No build plugins needed"), but app-level stylex.create() is NOT compiled
+ * by this Vite setup (no @stylexjs/babel-plugin) and throws at runtime —
+ * "Unexpected 'stylex.create' call at runtime" — during module evaluation,
+ * which left #root empty and the page blank. Plain CSS classes below are
+ * the equivalent declarations.
  */
-
-const shell = stylex.create({
-  page: {
-    maxWidth: 780,
-    marginInline: 'auto',
-    paddingInline: 20,
-    paddingBlock: 16,
-    boxSizing: 'border-box',
-  },
-  mastheadRule: {
-    borderTopWidth: 3,
-    borderTopStyle: 'solid',
-    borderTopColor: 'currentColor',
-    marginTop: 12,
-    marginBottom: 12,
-  },
-  nav: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    gap: 4,
-  },
-  explainerSteps: {
-    paddingInlineStart: 20,
-    margin: 0,
-    lineHeight: 1.7,
-  },
-})
 
 type Route =
   | 'home'
@@ -194,7 +173,7 @@ function ExplainerCard({ item }: { item: Explainer }) {
         <Badge label={item.category} variant="info" />
         <Heading level={3}>{item.title}</Heading>
         <Text as="p">{item.standfirst}</Text>
-        <ol {...stylex.props(shell.explainerSteps)}>
+        <ol className="shell-explainer-steps">
           {item.steps.map((s) => (
             <li key={s}>
               <Text as="span">{s}</Text>
@@ -385,7 +364,7 @@ export default function App({
   })
 
   return (
-    <div {...stylex.props(shell.page)}>
+    <div className="shell-page">
       <Stack gap={3}>
         <Stack gap={1}>
           <Text type="supporting">
@@ -400,9 +379,9 @@ export default function App({
           </Text>
         </Stack>
 
-        <div {...stylex.props(shell.mastheadRule)} />
+        <div className="shell-masthead-rule" />
 
-        <div {...stylex.props(shell.nav)}>
+        <div className="shell-nav">
           {NAV.map((n) => (
             <Button
               key={n.route}

@@ -3,3 +3,30 @@
    imports, in the order the Astryx README requires. */
 @import '@astryxdesign/core/reset.css';
 @import '@astryxdesign/core/astryx.css';
+
+/* Page shell — plain CSS equivalents of the former StyleX `shell`
+   object. (StyleX numbers are px.) Kept here, not in stylex.create(),
+   because app-level stylex.create() is not compiled by this Vite setup
+   and throws at runtime, blanking the page. */
+.shell-page {
+  max-width: 780px;
+  margin-inline: auto;
+  padding-inline: 20px;
+  padding-block: 16px;
+  box-sizing: border-box;
+}
+.shell-masthead-rule {
+  border-top: 3px solid currentColor;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+.shell-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.shell-explainer-steps {
+  padding-inline-start: 20px;
+  margin: 0;
+  line-height: 1.7;
+}
