@@ -1,0 +1,5 @@
+/* Astryx supplies the reset, component styles and the neutral theme.
+   This file carries no hand-rolled design system — only the Astryx
+   imports, in the order the Astryx README requires. */
+@import '@astryxdesign/core/reset.css';
+@import '@astryxdesign/core/astryx.css';
