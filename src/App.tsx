@@ -269,10 +269,9 @@ function PolicyPages({ route }: { route: Route }) {
           recommend, or what you pay.
         </Text>
         <Text as="p">
-          Right now, no affiliate links are live on this site. The Amazon
-          Influencer application will be made after this site is live, and
-          links will only appear once an application is approved. When they
-          do, every link will be clearly labelled as an affiliate link.
+          Our Amazon Influencer storefront is live at amazon.in/shop/bhoothaddam_3d.
+          Links on this site point to that storefront, and every link is
+          clearly labelled as an affiliate link.
         </Text>
         <Text as="p">
           We do not take payment to recommend a product, and we do not
@@ -403,8 +402,8 @@ export default function App({
           <Stack gap={4}>
             <Banner
               status="info"
-              title="No affiliate links live yet"
-              description="The Finds shelves below open after the Amazon Influencer application is approved. Until then, this site is only the written breakdowns behind the reels."
+              title="Shop the finds on Amazon"
+              description="Our Amazon storefront is live: amazon.in/shop/bhoothaddam_3d. The Finds shelves below link there, with a clear affiliate label on every link."
             />
             <Section>
               <Stack gap={3}>
@@ -428,11 +427,11 @@ export default function App({
             </Section>
             <Section>
               <Stack gap={3}>
-                <Heading level={2}>Finds — opens after approval</Heading>
+                <Heading level={2}>Finds — on our Amazon storefront</Heading>
                 <Text as="p">
-                  When the affiliate application is approved, these shelves
-                  will list the products behind the explainers, with a clear
-                  affiliate label on every link. Nothing is for sale here yet.
+                  These shelves list the products behind the explainers, on our
+                  Amazon storefront at amazon.in/shop/bhoothaddam_3d, with a
+                  clear affiliate label on every link.
                 </Text>
                 <Grid columns={{ minWidth: 280, max: 2 }} gap={4}>
                   {SHELVES.map((s) => (
@@ -440,7 +439,7 @@ export default function App({
                       <Stack gap={2}>
                         <Heading level={3}>{s.name}</Heading>
                         <Text as="p">{s.note}</Text>
-                        <Badge label="Opens after approval" variant="warning" />
+                        <Badge label="On our Amazon storefront" variant="success" />
                       </Stack>
                     </Card>
                   ))}
@@ -473,6 +472,13 @@ export default function App({
                     isStandalone
                   >
                     YouTube — @bhoothaddam-3d
+                  </Link>
+                  <Link
+                    href="https://www.amazon.in/shop/bhoothaddam_3d"
+                    isExternalLink
+                    isStandalone
+                  >
+                    Amazon storefront — shop the finds
                   </Link>
                 </Stack>
                 <Text type="supporting">
@@ -517,8 +523,8 @@ export default function App({
             <Heading level={2}>Finds</Heading>
             <Banner
               status="info"
-              title="Opens after approval"
-              description="No affiliate links are live yet. The Amazon Influencer application comes after this site, and these shelves open only once it is approved."
+              title="Live on our Amazon storefront"
+              description="These shelves link to our Amazon storefront at amazon.in/shop/bhoothaddam_3d, with a clear affiliate label on every link."
             />
             <Grid columns={{ minWidth: 280, max: 2 }} gap={4}>
               {SHELVES.map((s) => (
@@ -526,7 +532,7 @@ export default function App({
                   <Stack gap={2}>
                     <Heading level={3}>{s.name}</Heading>
                     <Text as="p">{s.note}</Text>
-                    <Badge label="Opens after approval" variant="warning" />
+                    <Badge label="On our Amazon storefront" variant="success" />
                   </Stack>
                 </Card>
               ))}
@@ -628,8 +634,7 @@ export default function App({
           </Stack>
           <Text type="supporting">
             Bhoothaddam · bhoothaddam.in · 3D stories that explain how things
-            work. No affiliate links live yet — the Influencer application
-            comes after this site.
+            work. Shop the finds at amazon.in/shop/bhoothaddam_3d.
           </Text>
         </Stack>
       </Stack>
