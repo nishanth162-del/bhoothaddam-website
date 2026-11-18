@@ -36,6 +36,7 @@ type Route =
   | 'about'
   | 'disclosure'
   | 'privacy'
+  | 'terms'
   | 'contact'
 
 function routeFromHash(): Route {
@@ -49,6 +50,7 @@ function routeFromHash(): Route {
     'about',
     'disclosure',
     'privacy',
+    'terms',
     'contact',
   ]
   return (routes as string[]).includes(h) ? (h as Route) : 'home'
@@ -264,19 +266,22 @@ function PolicyPages({ route }: { route: Route }) {
       <Stack gap={3}>
         <Heading level={2}>Affiliate Disclosure</Heading>
         <Text as="p">
-          Bhoothaddam may earn a commission when you buy through a link on
-          this site or on our social channels. That does not change what we
-          recommend, or what you pay.
+          Bhoothaddam participates in the Amazon Influencer Program. When
+          you buy through a link on this site or on our social channels, we
+          may earn a commission from Amazon at no extra cost to you.
         </Text>
         <Text as="p">
-          Our Amazon Influencer storefront is live at amazon.in/shop/bhoothaddam_3d.
-          Links on this site point to that storefront, and every link is
-          clearly labelled as an affiliate link.
+          Our storefront is at amazon.in/shop/bhoothaddam_3d. Links on this
+          site point to that storefront, and every link that earns a
+          commission is labelled as an affiliate link.
         </Text>
         <Text as="p">
-          We do not take payment to recommend a product, and we do not
-          publish commission rates.
+          A commission does not change what we recommend or what you pay.
+          Products appear here only because they are in, or directly
+          behind, one of our explainers. Nobody pays to be listed, and we
+          do not publish commission rates.
         </Text>
+        <Text type="supporting">Last updated: 18 November 2026.</Text>
       </Stack>
     )
   }
@@ -285,18 +290,139 @@ function PolicyPages({ route }: { route: Route }) {
       <Stack gap={3}>
         <Heading level={2}>Privacy Policy</Heading>
         <Text as="p">
-          This site does not ask you for personal information. It has no
-          accounts, no newsletter, and no contact form.
+          Bhoothaddam ("we", "us") runs this website, bhoothaddam.in, and
+          the Bhoothaddam channels on Instagram, Facebook and YouTube. This
+          policy explains what information is collected when you use this
+          site, and what we do with it. If you do not agree with it, please
+          do not use the site.
+        </Text>
+        <Heading level={3}>What we collect</Heading>
+        <Text as="p">
+          This site has no accounts, no newsletter, and no contact form, so
+          we do not ask you for your name, email address, or phone number.
+          The Deal Checker runs entirely in your browser: the prices you
+          type in are never sent to us or stored anywhere.
         </Text>
         <Text as="p">
-          The hosting provider may record standard server logs, such as the
-          page requested and the time, as most websites do. We do not run
-          advertising trackers on this site.
+          Our hosting provider may keep standard server logs, such as the
+          page requested, the time of the visit, and a general location
+          derived from your IP address. These logs are used to keep the
+          site running and secure, and are not used to identify you.
         </Text>
+        <Heading level={3}>Cookies and tracking</Heading>
         <Text as="p">
-          Links to Instagram, Facebook and YouTube take you to those
-          platforms, and their privacy policies apply there.
+          We do not run advertising trackers on this site, and we do not
+          sell or share your information with advertisers. We do not
+          currently use analytics software that follows you across the
+          web. If that changes, this policy will be updated first.
         </Text>
+        <Heading level={3}>Links to other sites</Heading>
+        <Text as="p">
+          This site links to Instagram, Facebook, YouTube, and Amazon.
+          Those platforms have their own privacy policies, and they apply
+          once you leave this site. We are not responsible for how they
+          handle your information. Buying through our Amazon storefront is
+          governed by Amazon&apos;s privacy notice and terms.
+        </Text>
+        <Heading level={3}>Children</Heading>
+        <Text as="p">
+          This site is intended for a general audience. We do not knowingly
+          collect personal information from children under 18.
+        </Text>
+        <Heading level={3}>Your rights</Heading>
+        <Text as="p">
+          Under India&apos;s Digital Personal Data Protection Act, 2023, you
+          may ask us what personal information we hold about you, and ask
+          for it to be corrected or erased. Since this site collects almost
+          nothing directly, most such requests will concern server logs
+          held by our hosting provider. You can reach us through the
+          channels on the Contact page, and we will respond within a
+          reasonable time.
+        </Text>
+        <Heading level={3}>Changes to this policy</Heading>
+        <Text as="p">
+          We may update this policy from time to time. The latest version
+          is always the one published on this page, and the date below
+          shows when it was last changed.
+        </Text>
+        <Text type="supporting">
+          Last updated: 18 November 2026. Contact: see the Contact page.
+        </Text>
+      </Stack>
+    )
+  }
+  if (route === 'terms') {
+    return (
+      <Stack gap={3}>
+        <Heading level={2}>Terms of Service</Heading>
+        <Text as="p">
+          These terms govern your use of bhoothaddam.in. By using this
+          site, you accept them. If you do not accept them, please do not
+          use the site.
+        </Text>
+        <Heading level={3}>What this site is</Heading>
+        <Text as="p">
+          Bhoothaddam publishes short 3D visual explainers that answer
+          everyday questions — how things work, step by step. This website
+          carries the full written versions of those explainers, and lists
+          the products behind them under Finds.
+        </Text>
+        <Heading level={3}>Accuracy</Heading>
+        <Text as="p">
+          Our explainers simplify complex subjects so they can be followed
+          in under a minute. We check the facts we state, and we say so
+          when something is unverified — but simplifications are still
+          simplifications. Do not treat an explainer as professional,
+          technical, medical, or financial advice. For anything that
+          matters, check the original source or ask a qualified
+          professional.
+        </Text>
+        <Heading level={3}>Prices and the Deal Checker</Heading>
+        <Text as="p">
+          A price is shown only if it was actually seen on the
+          seller&apos;s page at the time of checking. Prices change, and
+          offers expire. The Deal Checker is a guide, not a guarantee: the
+          price on the seller&apos;s page at the moment you buy is the one
+          that counts.
+        </Text>
+        <Heading level={3}>Affiliate links</Heading>
+        <Text as="p">
+          Some links on this site are affiliate links. If you buy through
+          one, we may earn a commission at no extra cost to you. See the
+          Affiliate Disclosure page for the full details.
+        </Text>
+        <Heading level={3}>Content and ownership</Heading>
+        <Text as="p">
+          The text, videos, images, and 3D visuals on this site belong to
+          Bhoothaddam unless stated otherwise. You may share links to our
+          pages and quote short passages with credit. You may not copy,
+          re-upload, or sell our content as your own, or use it in a way
+          that suggests we endorse you.
+        </Text>
+        <Heading level={3}>Acceptable use</Heading>
+        <Text as="p">
+          Do not misuse this site: do not try to break it, scrape it in a
+          way that disrupts it for others, or use it for anything unlawful.
+        </Text>
+        <Heading level={3}>Liability</Heading>
+        <Text as="p">
+          This site is provided as it is, without warranties of any kind.
+          To the extent permitted by law, we are not liable for any loss
+          arising from your use of the site, from a product you buy through
+          a link here, or from relying on an explainer. Your purchase is
+          governed by the seller&apos;s own terms.
+        </Text>
+        <Heading level={3}>Governing law</Heading>
+        <Text as="p">
+          These terms are governed by the laws of India. Any dispute will
+          be subject to the courts of Bengaluru, Karnataka.
+        </Text>
+        <Heading level={3}>Changes</Heading>
+        <Text as="p">
+          We may update these terms from time to time. The latest version
+          is always the one published on this page.
+        </Text>
+        <Text type="supporting">Last updated: 18 November 2026.</Text>
       </Stack>
     )
   }
@@ -305,8 +431,8 @@ function PolicyPages({ route }: { route: Route }) {
       <Heading level={2}>Contact</Heading>
       <Text as="p">
         The fastest way to reach Bhoothaddam is through the channels
-        themselves — send a message on Instagram or Facebook, or a comment on
-        YouTube.
+        themselves — send a message on Instagram or Facebook, or leave a
+        comment on YouTube. Messages are read by the creator.
       </Text>
       <Stack gap={2}>
         <Link href="https://www.instagram.com/bhoothaddam_3d" isExternalLink isStandalone>
@@ -320,8 +446,9 @@ function PolicyPages({ route }: { route: Route }) {
         </Link>
       </Stack>
       <Text type="supporting">
-        There is no email address published for this site, so nothing here is
-        invented. Messages on the channels are read by the creator.
+        We do not publish an email address for this site. For privacy
+        requests, use any of the channels above and mention that it is a
+        privacy request.
       </Text>
     </Stack>
   )
@@ -482,7 +609,7 @@ export default function App({
                   </Link>
                 </Stack>
                 <Text type="supporting">
-                  Instagram: 2,404 followers · Facebook profile Bhoothaddam
+                  Instagram: 3,265 followers · Facebook profile Bhoothaddam
                   D: 400+ followers.
                 </Text>
               </Stack>
@@ -602,12 +729,12 @@ export default function App({
               step by step, in 3D.
             </Text>
             <Text as="p">
-              The channel is on Instagram (@bhoothaddam_3d, 2,404 followers),
+              The channel is on Instagram (@bhoothaddam_3d, 3,265 followers),
               on Facebook as the public profile Bhoothaddam D (400+
               followers), and on YouTube (@bhoothaddam-3d). This website is
               where the full written breakdowns live, and where the finds
-              behind the videos will be listed once the affiliate application
-              is approved.
+              behind the videos are listed on our Amazon storefront at
+              amazon.in/shop/bhoothaddam_3d.
             </Text>
             <Text as="p">
               The site is built with Astryx, Meta’s open-source design
@@ -618,6 +745,7 @@ export default function App({
 
         {(route === 'disclosure' ||
           route === 'privacy' ||
+          route === 'terms' ||
           route === 'contact') && <PolicyPages route={route} />}
 
         <Divider />
@@ -630,6 +758,7 @@ export default function App({
               onClick={() => go('disclosure')}
             />
             <Button label="Privacy" variant="ghost" onClick={() => go('privacy')} />
+            <Button label="Terms" variant="ghost" onClick={() => go('terms')} />
             <Button label="Contact" variant="ghost" onClick={() => go('contact')} />
           </Stack>
           <Text type="supporting">
