@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Stack } from '@astryxdesign/core/Stack'
 import { Heading } from '@astryxdesign/core/Heading'
 import { Text } from '@astryxdesign/core/Text'
@@ -26,6 +26,96 @@ import { Grid } from '@astryxdesign/core/Grid'
  * which left #root empty and the page blank. Plain CSS classes below are
  * the equivalent declarations.
  */
+
+/*
+ * Funny UI sounds, synthesized in the browser with WebAudio — no audio
+ * files, nothing downloaded, nothing sent anywhere. Sounds only ever
+ * play in response to a tap or click, never on page load, and never loop.
+ * The toggle in the header turns them off; the choice is remembered in
+ * localStorage. Keep them subtle: a pop for navigation, a boing for the
+ * theme switch, a ding for a genuine deal, a sad slide-whistle for a
+ * deal that is not one.
+ */
+let audioCtx: AudioContext | null = null
+let soundsEnabled = true
+
+function getAudioCtx(): AudioContext | null {
+  try {
+    if (!audioCtx) {
+      const AC =
+        window.AudioContext ||
+        (window as unknown as { webkitAudioContext?: typeof AudioContext })
+          .webkitAudioContext
+      if (!AC) return null
+      audioCtx = new AC()
+    }
+    if (audioCtx.state === 'suspended') void audioCtx.resume()
+    return audioCtx
+  } catch {
+    return null
+  }
+}
+
+function tone(
+  freqFrom: number,
+  freqTo: number,
+  duration: number,
+  type: OscillatorType,
+  volume: number,
+  delay = 0,
+) {
+  const ctx = getAudioCtx()
+  if (!ctx) return
+  const t0 = ctx.currentTime + delay
+  const osc = ctx.createOscillator()
+  const gain = ctx.createGain()
+  osc.type = type
+  osc.frequency.setValueAtTime(freqFrom, t0)
+  osc.frequency.exponentialRampToValueAtTime(Math.max(freqTo, 1), t0 + duration)
+  gain.gain.setValueAtTime(0, t0)
+  gain.gain.linearRampToValueAtTime(volume, t0 + 0.01)
+  gain.gain.exponentialRampToValueAtTime(0.0001, t0 + duration)
+  osc.connect(gain)
+  gain.connect(ctx.destination)
+  osc.start(t0)
+  osc.stop(t0 + duration + 0.05)
+}
+
+export function setSoundsEnabled(on: boolean) {
+  soundsEnabled = on
+}
+
+function play(fn: () => void) {
+  if (!soundsEnabled) return
+  try {
+    fn()
+  } catch {
+    /* A sound failing must never break the page. */
+  }
+}
+
+/** Short pop — navigation, filters, footer links. */
+export function sfxPop() {
+  play(() => tone(520, 880, 0.09, 'sine', 0.12))
+}
+
+/** Springy boing — the theme switch. */
+export function sfxBoing() {
+  play(() => tone(180, 620, 0.22, 'triangle', 0.12))
+}
+
+/** Bright two-note ding — a genuine deal. */
+export function sfxDing() {
+  play(() => {
+    tone(880, 880, 0.12, 'sine', 0.12)
+    tone(1318, 1318, 0.18, 'sine', 0.1, 0.1)
+  })
+}
+
+/** Sad slide-whistle down — a deal that is not one. */
+export function sfxWomp() {
+  play(() => tone(420, 140, 0.45, 'sine', 0.1))
+}
 
 type Route =
   | 'home'
@@ -201,6 +291,15 @@ function DealChecker() {
     ? Math.round(((streetN - offerN) / streetN) * 100)
     : 0
   const genuine = ready && offerN < streetN
+  const prevVerdict = useRef<string | null>(null)
+  useEffect(() => {
+    const verdict = !ready ? null : genuine ? 'genuine' : 'not-deal'
+    if (verdict && verdict !== prevVerdict.current) {
+      if (verdict === 'genuine') sfxDing()
+      else sfxWomp()
+    }
+    prevVerdict.current = verdict
+  }, [ready, genuine])
   return (
     <Stack gap={4}>
       <Heading level={2}>Deal Checker</Heading>
@@ -463,6 +562,24 @@ export default function App({
 }) {
   const [route, setRoute] = useState<Route>(routeFromHash)
   const [filter, setFilter] = useState('All')
+  const [soundOn, setSoundOn] = useState(
+    () =>
+      typeof window !== 'undefined' &&
+      window.localStorage.getItem('bhoothaddam-sound') !== 'off',
+  )
+
+  useEffect(() => {
+    setSoundsEnabled(soundOn)
+    window.localStorage.setItem(
+      'bhoothaddam-sound',
+      soundOn ? 'on' : 'off',
+    )
+  }, [soundOn])
+
+  const toggleSound = () => {
+    setSoundOn((on) => !on)
+    sfxPop()
+  }
 
   useEffect(() => {
     const onHash = () => {
@@ -474,6 +591,7 @@ export default function App({
   }, [])
 
   const go = (r: Route) => {
+    sfxPop()
     window.location.hash = `/${r}`
   }
 
@@ -519,7 +637,15 @@ export default function App({
           <Button
             label={mode === 'dark' ? 'Light mode' : 'Dark mode'}
             variant="secondary"
-            onClick={onToggleMode}
+            onClick={() => {
+              sfxBoing()
+              onToggleMode()
+            }}
+          />
+          <Button
+            label={soundOn ? 'Sound: on' : 'Sound: off'}
+            variant="secondary"
+            onClick={toggleSound}
           />
         </div>
 
@@ -609,8 +735,8 @@ export default function App({
                   </Link>
                 </Stack>
                 <Text type="supporting">
-                  Instagram: 3,265 followers · Facebook profile Bhoothaddam
-                  D: 400+ followers.
+                  Instagram: 4,422 followers · Facebook profile Bhoothaddam
+                  D: 2.6k followers.
                 </Text>
               </Stack>
             </Section>
@@ -630,7 +756,10 @@ export default function App({
                   key={c}
                   label={c}
                   variant={filter === c ? 'primary' : 'secondary'}
-                  onClick={() => setFilter(c)}
+                  onClick={() => {
+                    sfxPop()
+                    setFilter(c)
+                  }}
                 />
               ))}
             </Stack>
