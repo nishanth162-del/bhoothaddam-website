@@ -8,7 +8,8 @@ import App from './App.tsx'
 type Mode = 'system' | 'light' | 'dark'
 
 function Root() {
-  const [mode, setMode] = useState<Mode>('system')
+  // Dark-first: the redesign is built for dark; light is one tap away.
+  const [mode, setMode] = useState<Mode>('dark')
   return (
     <Theme theme={themes[defaultThemeSlug]} mode={mode}>
       <App
